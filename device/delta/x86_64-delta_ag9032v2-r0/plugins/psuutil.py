@@ -4,13 +4,11 @@
 #
 
 import os.path
-import subprocess
 
 try:
     from sonic_psu.psu_base import PsuBase
 except ImportError as e:
-    raise ImportError(str(e) + "- required module not found")
-
+    raise ImportError (str(e) + "- required module not found")
 
 class PsuUtil(PsuBase):
     """Platform-specific PSUutil class"""
@@ -53,6 +51,7 @@ class PsuUtil(PsuBase):
             return False
         return status == 1
 
+
     def get_psu_presence(self, index):
         """
         Retrieves the presence status of power supply unit (PSU) defined
@@ -72,13 +71,14 @@ class PsuUtil(PsuBase):
             if index == 1:
                 mask = (1 << 7)
                 if reg_value & mask == 0x80:
-                    return False
+                   return False
             else:
                 mask = (1 << 3)
                 if reg_value & mask == 0x08:
-                    return False
+                   return False
             status = 1
             p.close()
         except IOError:
             return False
         return status == 1
+
