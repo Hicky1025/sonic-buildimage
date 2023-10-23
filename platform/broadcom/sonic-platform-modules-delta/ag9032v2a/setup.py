@@ -3,7 +3,7 @@ from setuptools import setup
 setup(
     name='sonic-platform',
     version='1.0',
-    description='Module to initialize Delta AG9032V2 platforms',
+    description='Module to initialize Delta AG9032V2A platforms',
     license='Apache 2.0',
     author='SONiC Team',
     author_email='linuxnetdev@microsoft.com',
