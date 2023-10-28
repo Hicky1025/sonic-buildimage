@@ -1,5 +1,12 @@
 #!/usr/bin/env python
+
+########################################################################
+# Delta AG9032V2
 #
+# Module contains an implementation of SONiC Platform Base API and
+# provides the PSUs' information which are available in the platform
+#
+########################################################################
 
 import os.path
 import re
@@ -10,30 +17,20 @@ try:
 except ImportError as e:
     raise ImportError (str(e) + "- required module not found")
 
-
 class Psu(PsuBase):
 
     def __init__(self, index):
         PsuBase.__init__(self)
         self.index = index + 1
 
-#        self._fan_list.append(Fan(fan_index=self.index, psu_fan=True,
-#            dependency=self))
-
-##############################################
-# Device methods
-##############################################
-    def get_num_psus(self):
-        """
-        Retrieves the number of PSUs available on the device
-        :return: An integer, the number of PSUs available on the device
-        """
-        AG9032V2_MAX_PSUS = 2
-        return AG9032V2_MAX_PSUS
+        # Passing True to specify it is a PSU fan
+        self._fan_list.append(Fan(fan_index=self.index, psu_fan=True,
+                              dependency=self))
 
     def get_name(self):
         """
         Retrieves the name of the device
+
         Returns:
             string: The name of the device
         """
@@ -42,6 +39,7 @@ class Psu(PsuBase):
     def get_presence(self):
         """
         Retrieves the presence of the device
+
         Returns:
             bool: True if device is present, False if not
         """
@@ -50,7 +48,7 @@ class Psu(PsuBase):
         try:
             p = os.popen("ipmitool raw 0x38 0x2 3 0x6a 0x3 1")
             content = p.readline().rstrip()
-            reg_value = int(content)
+            reg_value = int(content,16)
             if self.index == 1:
                 mask = (1 << 7)
                 if reg_value & mask == 0x80:
@@ -67,6 +65,7 @@ class Psu(PsuBase):
     def get_model(self):
         """
         Retrieves the model number (or part number) of the device
+
         Returns:
             string: Model/part number of device
         """
@@ -85,6 +84,7 @@ class Psu(PsuBase):
     def get_serial(self):
         """
         Retrieves the serial number of the device
+
         Returns:
             string: Serial number of device
         """
@@ -103,6 +103,7 @@ class Psu(PsuBase):
     def get_status(self):
         """
         Retrieves the operational status of the device
+
         Returns:
             A boolean value, True if device is operating properly, False if not
         """
@@ -121,13 +122,10 @@ class Psu(PsuBase):
             raise SyntaxError
         return True
 
-##############################################
-# PSU methods
-##############################################
-
     def get_voltage(self):
         """
         Retrieves current PSU voltage output
+
         Returns:
             A float number, the output voltage in volts,
             e.g. 12.1
@@ -148,6 +146,7 @@ class Psu(PsuBase):
     def get_current(self):
         """
         Retrieves present electric current supplied by PSU
+
         Returns:
             A float number, the electric current in amperes, e.g 15.4
         """
@@ -167,6 +166,7 @@ class Psu(PsuBase):
     def get_power(self):
         """
         Retrieves current energy supplied by PSU
+
         Returns:
             A float number, the power in watts, e.g. 302.6
         """
@@ -186,6 +186,7 @@ class Psu(PsuBase):
     def get_powergood_status(self):
         """
         Retrieves the powergood status of PSU
+
         Returns:
             A boolean, True if PSU has stablized its output voltages and passed all
             its internal self-tests, False if not.
@@ -195,9 +196,11 @@ class Psu(PsuBase):
     def set_status_led(self, color):
         """
         Sets the state of the PSU status LED
+
         Args:
             color: A string representing the color with which to set the
                    PSU status LED
+
         Returns:
             bool: True if status LED state is set successfully, False if not
         """
@@ -206,6 +209,7 @@ class Psu(PsuBase):
     def get_status_led(self):
         """
         Gets the state of the PSU status LED
+
         Returns:
             A string, one of the predefined STATUS_LED_COLOR_* strings above
         """

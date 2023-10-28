@@ -68,6 +68,7 @@ class Chassis(ChassisBase):
             31: 50,
             32: 51,
             33: 52,
+            34: 53,
             }
 
     def __init__(self):

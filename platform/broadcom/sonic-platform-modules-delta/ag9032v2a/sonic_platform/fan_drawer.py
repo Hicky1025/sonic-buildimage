@@ -14,16 +14,14 @@ try:
 except ImportError as e:
     raise ImportError(str(e) + "- required module not found")
 
-FANS_PER_FANTRAY = 1
+AG9032V2A_FANS_PER_FANTRAY = 1
 
 class FanDrawer(FanDrawerBase):
-    """Delta AG9032V2A Platform-specific Fan class"""
-
     def __init__(self, fantray_index):
 
         FanDrawerBase.__init__(self)
         self.fantrayindex = fantray_index + 1
-        for i in range(FANS_PER_FANTRAY):
+        for i in range(AG9032V2A_FANS_PER_FANTRAY):
             self._fan_list.append(Fan(fantray_index, i))
 
     def get_name(self):

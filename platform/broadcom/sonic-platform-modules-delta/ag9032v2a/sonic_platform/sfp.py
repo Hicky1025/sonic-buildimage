@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 #############################################################################
-# DELTA AG9032V2a
+# DELTA AG9032V2A
 #
 # Module contains an implementation of SONiC Platform Base API and
 # provides the platform information
