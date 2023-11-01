@@ -387,4 +387,3 @@ portmap_9=9:100
 ptp_bs_fref_0=50000000
 ptp_bs_fref_1=50000000
 ptp_ts_pll_fref=50000000
-

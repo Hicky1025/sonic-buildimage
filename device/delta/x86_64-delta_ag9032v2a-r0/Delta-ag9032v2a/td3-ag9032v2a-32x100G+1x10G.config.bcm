@@ -1,4 +1,4 @@
-sai_load_hw_config=/etc/bcm/flex/bcm56870_a0_premium_issu/b870.6.4.1/
+sai_load_hw_config=/etc/bcm/flex/bcm56870_a0_issu/b870.6.4.1/
 pbmp_oversubscribe=0x00003fc000000ff0000003fc000001fe
 pbmp_xport_xe=0xffffffffffffffffffffffffffffffffffff
 core_clock_frequency=1525
@@ -351,6 +351,7 @@ phy_chain_tx_polarity_flip_physical{97.0}=0x1
 phy_chain_tx_polarity_flip_physical{98.0}=0x1
 phy_chain_tx_polarity_flip_physical{99.0}=0x0
 portmap_66.0=129:10:m 
+portmap_130.0=128:10:m 
 portmap_103=101:100
 portmap_107=105:100
 portmap_111=109:100
@@ -386,5 +387,3 @@ portmap_9=9:100
 ptp_bs_fref_0=50000000
 ptp_bs_fref_1=50000000
 ptp_ts_pll_fref=50000000
-
-

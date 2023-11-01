@@ -14,8 +14,7 @@ class SfpUtil(SfpUtilBase):
     """Platform-specific SfpUtil class"""
 
     PORT_START = 0
-    PORT_END = 32
-    PORTS_IN_BLOCK = 33
+    PORT_END = 33
 
     EEPROM_OFFSET = 20
 
@@ -31,7 +30,7 @@ class SfpUtil(SfpUtilBase):
 
     @property
     def qsfp_ports(self):
-        return list(range(0, self.PORT_END - self.PORT_START + 1))
+        return range(0, self.PORT_END - self.PORT_START + 1)
 
     @property
     def port_to_eeprom_mapping(self):
@@ -62,7 +61,7 @@ class SfpUtil(SfpUtilBase):
         reg_value = int(content, 16)
 
         # Mask off the bit corresponding to our port
-        mask = (1 << (self.port_end - port_num + 7))
+        mask = (1 << (self.port_end - port_num + 6))
 
         # ModPrsL is active low
         if reg_value & mask == 0:
@@ -72,7 +71,7 @@ class SfpUtil(SfpUtilBase):
 
     def get_low_power_mode(self, port_num):
         # Check for invalid port_num
-        if port_num < self.port_start or port_num > self.port_end - 1:
+        if port_num < self.port_start or port_num > self.port_end - 2:
             return False
 
         try:
@@ -96,7 +95,7 @@ class SfpUtil(SfpUtilBase):
 
     def set_low_power_mode(self, port_num, lpmode):
         # Check for invalid port_num
-        if port_num < self.port_start or port_num > self.port_end - 1:
+        if port_num < self.port_start or port_num > self.port_end - 2:
             return False
 
         try:
@@ -132,7 +131,7 @@ class SfpUtil(SfpUtilBase):
         QSFP_RESET_REGISTER_DEVICE_FILE = "/sys/devices/platform/delta-ag9032v2a-swpld1.0/qsfp_reset"
 
         # Check for invalid port_num
-        if port_num < self.port_start or port_num > self.port_end - 1:
+        if port_num < self.port_start or port_num > self.port_end - 2:
             return False
 
         try:
